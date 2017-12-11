@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>AngularJS Forms</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+	</head>
+    <body class="container">
+        <div class="row" ng-app="monApp" ng-controller="maincntrl">
+            <h2 class="text-center"> AngularJS Formulaire </h2>
+            <div class="col-md-offset-1 col-md-6 col-sm-12" >
+                <div class="login">
+                    <h2>Enregistrement du Formulaire</h2>
+                    <hr>
+					<!--Code of form started-->
+                    <form class="form-horizontal" name="frm" novalidate>
+                       
+						<div class="form-group" >
+                            <label id="label" class="control-label">Nom:</label>
+                            <input type="text" class="form-control" name="username" ng-model="user.firstname" placeholder="Enter le nom" autocomplete="off" required />
+                        </div>
+						
+                        <div class="form-group">
+                            <label id="label" class="control-label">Email:</label>
+                            <input type="email" class="form-control" ng-model="user.email" name="email" placeholder="Enter Adresse Email " autocomplete="off" required>
+                            <span class="msg" ng-show="frm.email.$dirty && frm.email.$invalid">Adresse Email Address non valide</span>
+                        </div>
+						<!--valiadation du mot de passe -->
+                        <div class="form-group">
+                            <label id="label" class="control-label">Mot de passe:</label>
+                            <input type="password" class="form-control" ng-model="user.pass" name="pass" placeholder="Enter Password" autocomplete="off" ng-minlength="5" ng-maxlength="12" required>
+                            <span class="msg" ng-show="frm.pass.$dirty && frm.pass.$error.minlength">le mot de passe doit contenir au moins 5 caractères</span>
+                            <span class="msg" ng-show="frm.pass.$dirty && frm.pass.$error.maxlength">la longueur du mot de passe atteint</span>
+                        </div>
+						<!--validate message input box-->
+                        <div class="form-group">
+                            <label id="label" class="control-label">Message:</label>
+                            <textarea type="textarea" rows="2" cols="50" name="message" class="form-control" ng-model="user.message" placeholder="Enter un Message" autocomplete="off" required></textarea><br>
+                            <span class="msg" ng-show="frm.message.$error.required">Entrez un message</span>
+                        </div>
+						<!--validate gender field-->
+                        <div class="form-group">
+                            <label id="label" >Genre:</label>&nbsp;&nbsp;&nbsp;
+                            Masculin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" ng-model="user.gender" value="male" required>
+                            &nbsp;&nbsp;&nbsp;&nbsp  Feminin   <input type="radio" name="gender" ng-model="user.gender" value="female" required></br>
+                            <span class="msg" ng-show="frm.gender.$error.required">sélectionnez n importe quel genre</span>
+                        </div>
+						<!--Code to validate country field-->
+                        <div class="form-group">
+                            <label id="label" class="control-label">Pays:</label>
+                            <select class="form-control" ng-model="user.country" name="cont" required>
+                                <option value="Maroc">Maroc</option>
+                                <option value="france">France</option>
+                                <option value="Egypte">Egypte</option>
+                                <option value="switzerland">switzerland</option>
+                            </select>
+                            <span class="msg" ng-show="frm.cont.$error.required">Select a value</span>
+                        </div>
+						<!--disable submit button is written here-->
+                        <div class="form-group">
+                            <input ng-disabled="frm.$invalid" class="btn btn-warning" type="submit" ng-click="call()" value="Submit">
+                        </div>
+                    </form>							
+                </div>
+            </div>
+			<!--code to show values after clicking pn submit button-->
+            <div class="col-md-offset-1 col-md-4 col-sm-12">
+                <div class="alert1" ng-show="submit_success" style="word-wrap:break-word;">
+                    <div class="login" >
+                        <h2>submitted values</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-5 headname">
+                                <b>Nom:</b> </div> <div class="col-md-7">   {{server.firstname}}</div>	</div>
+                        <div class="row"><div class="col-md-5 headname"><b>Email: </b> </div> <div class="col-md-7">    {{server.email}}<br></div></div>
+                        <div class="row"><div class="col-md-5 headname"><b>Mot de passe:</b></div><div class="col-md-7"> {{server.pass}}<br></div></div>
+                        <div class="row"><div class="col-md-5 headname"><b>Message: </b></div><div class="col-md-7">       {{server.message}}<br></div></div>
+                        <div class="row"><div class="col-md-5 headname"><b>Genre: </b></div> <div class="col-md-7">{{server.gender}}<br></div></div>
+                        <div class="row"><div class="col-md-5 headname"><b>Pays: </b></div><div class="col-md-7">      {{server.country}}<br></div></div>
+                        <b>JSON Data: </b>      {{server}}
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
